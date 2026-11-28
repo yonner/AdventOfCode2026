@@ -22,11 +22,13 @@ def test_get_user_email_returns_email():    # Arrange: create a mock dependency 
 def test_get_user_email_raises_if_user_is_missing():    
     api_client = Mock()    
     api_client.get_user.return_value = None
-    with pytest.raises(ValueError, match="User 42 not found"):        get_user_email(42, api_client)
+    with pytest.raises(ValueError, match="User 42 not found"):        
+        get_user_email(42, api_client)
     api_client.get_user.assert_called_once_with(42)
 
 def test_get_user_email_propagates_api_error():    
     api_client = Mock()    
     api_client.get_user.side_effect = TimeoutError("API timed out")
-    with pytest.raises(TimeoutError, match="API timed out"):        get_user_email(42, api_client)
+    with pytest.raises(TimeoutError, match="API timed out"):       
+        get_user_email(42, api_client)
     api_client.get_user.assert_called_once_with(42)
